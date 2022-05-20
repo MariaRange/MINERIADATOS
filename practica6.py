@@ -10,5 +10,8 @@ df = df[['is_admin','company']]
 
 pd.crosstab(df['is_admin'],df['company']).plot(kind='bar')
 plt.title('Mariaaaaaa')
-plt.scatter(x=[1], y=[6])
+#plt.scatter(x=[1], y=[6])
+plt.ylabel("Companias")
+plt.xlabel("Administrador")
+plt.legend(loc='lower right')
 plt.show()
