@@ -9,4 +9,6 @@ df = df[['is_admin','company']]
 #print(df.head(6))
 
 pd.crosstab(df['is_admin'],df['company']).plot(kind='bar')
+plt.title('Mariaaaaaa')
+plt.scatter(x=[1], y=[6])
 plt.show()
