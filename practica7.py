@@ -47,10 +47,25 @@ col_names = df.columns.tolist()
 #for column in col_names:
     #print("Valores nulos en <" + column + ">": + str(df[column].isnull))
 
-#Cruce de tabla de informacion
-ct = pd.crosstab(df['Survived'],df['Sex']).plot(kind='bar')
-plt.xlabel("Sobrevivio")
-plt.ylabel("Cantidad de sobrevivientes por genero")
+#cruce de tabla o de información
+ct = pd.crosstab(df['Survived'],df['Sex']).plot(kind = 'bar')
+plt.xlabel('Sobrevivio')
+plt.ylabel('Cantidad de sobrevivientes por genero')
+
+#crear crosstab para survived y pclass
+ct = pd.crosstab(df['Survived'],df['Pclass']).plot(kind = 'bar')
+plt.xlabel('Sobrevivio')
+plt.ylabel('Cantidad de sobrevivientes por Pclass')
+
+#crear crosstab para survived y cabina
+ct = pd.crosstab(df['Survived'],df['Cabin']).plot(kind = 'bar')
+plt.xlabel('Sobrevivio')
+plt.ylabel('Cantidad de sobrevivientes por Cabina')
+
+#crear crosstab para survived y age
+ct = pd.crosstab(df['Survived'],df['Age']).plot(kind = 'bar')
+plt.xlabel('Sobrevivio')
+plt.ylabel('Cantidad de sobrevivientes por Edad')
 
 for barra in ct.containers:
     ct.bar_label(barra, label_type='edge')
