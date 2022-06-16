@@ -1,44 +1,70 @@
 # Importar pandas 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # Empezar a leer el archivo csv
-df = pd.read_csv('mineriadatos/users_data2.csv')
+df = pd.read_csv('mineriadatos/train.csv')
 
-# Imprimir 5 registros
-#print(df.head())
+#Consultar de ,manera rapida si esta conectando con el dataset
+print("----------------CONEXION--------------------")
+print(df.head(6))
 
-# Dimencion del dataset/ dataframe
-#print(df.shape)
+#Conocer la dimension del dataset 
+print("---------------DIMENSION--------------------")
+print(df.shape)
 
-# Nombre de tipo o dictado de columna
-#print(df.dtypes)
+#Conocer info de dataset
+print("---------------INFORMACION------------------")
+print(df.info)
 
-# Consideraciones de rendimiento (columnas,datos nulos, dtypes, peso, etc)
-#print(df.info())
-
-# Describir dataframe
-# Muestra el numero de datos de cada columna, datos unicos, es que mas se repite, asi como la frecuencia 
-#print(df.describe())
-
-#Conocer la cantidad de datos faltantes por cada columna
-#Muestra la cantidad de filas faltantes 
-#print(df.count())
+#Contar el numero de registros por columna
+print("----------REGISTROS POR COLUMNA-------------")
+print(df.count())
 
 #Conocer si hay datos duplicados
-#print(df.duplicated().sum())
+print("------------DATOS DUPLICADOS----------------")
+print(df.duplicated().sum())
 
-#Obtener los nombres de las columnas en una lista
-col_names = df.columns.tolist()
-#Iterar sobre la lista
-for column in col_names:
-    #Conocer valores nulos
-    print("Valores nulos en <" + column + ">: " + str(df[column].isnull().sum()))
-    #Conocer tipo de dato por columna
-    print("Tipo de valor de <" + column + ">: " + str(df[column].dtypes))
+# Llenar los campos nulos
+col_names =df.columns.tolist()
+print("--------------VALORES NULOS-----------------")
+for column in col_names :
+    print( "Valores nulos en  <"+ column + ">: "  + str (df[column].isnull().sum()))
 
-#Llenar la columna avatar con una url por default
-df['avatar'] = df['avatar'].fillna('default.png')
-df['lenguage'] = df['lenguage'].fillna('Desconocido')
-df['gender'] = df['gender'].fillna('D')
+# Llenar valores nulos en las columnas
+df['Age'] = df['Age'].fillna(0)  
+df['Cabin'] = df['Cabin'].fillna("Unknown") 
+df['Embarked'] = df['Embarked'].fillna("U")    
 
-df.to_csv('mineriadatos/users-modify.csv' , index=False)
+print("--------------COMPROBACION------------------")
+df.to_csv('mineriadatos/train_completo.csv', index=False)
+df_completo = pd.read_csv('mineriadatos/train_completo.csv')
+print(df_completo.count())
+
+# Crear 3 crosstab para conocer mas del dataset con tablas.
+#Grafica  Numero 1
+df_completo3 = df_completo[['Survived', 'Pclass']]
+ct3 = pd.crosstab(df_completo3['Survived'],df_completo3['Pclass']).plot(kind='bar')
+plt.legend(title = "Pclass") 
+plt.title("Grafica 1. Sobrevivio y Pclass")
+plt.xlabel("Sobrevivio")
+plt.xticks([0, 1], ['No', 'Si'])
+plt.show()
+
+#Grafica Numero 2
+df_completo1 = df_completo[['Age', 'Sex']]
+ct = pd.crosstab(df['Age'],df['Sex']).plot(kind='bar')
+plt.legend(title = "Sexo") 
+plt.title("Grafica 2. Edad y Sexo")
+plt.xlabel("Edad")
+plt.yticks([0, 1], ['Femenino', 'Masculino'])
+plt.show()
+
+#Grafica Numero 3
+df_completo2 = df_completo[['Survived', 'Sex']]
+ct2 = pd.crosstab(df_completo2['Survived'],df_completo2['Sex']).plot(kind='bar')
+plt.legend(title = "Genero") 
+plt.title("Grafica 3. Sobrevivientes y Sexo")
+plt.xlabel("Sobrevivio")
+plt.xticks([0, 1], ['No', 'Si'])
+plt.show()
