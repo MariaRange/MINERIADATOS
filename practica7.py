@@ -32,7 +32,7 @@ print(df.count())
 # de reemplazo
 d = {'male' : 'M', 'female': 'F' }
 
-#Utilizamos un lambda para el reemplazo en una sola linea
+#Utilizamos un lamada para el reemplazo en una sola linea
 df['Sex'] = df['Sex'].apply(lambda x:d[x])
 #for x in df['Sex']:
 #    df['Sex'] = df['Sex'].apply(d[x])
