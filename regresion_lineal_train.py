@@ -20,11 +20,13 @@ df['ChestPainType'] = df['ChestPainType'].apply(lambda x: d[x])
 
 d = {'Normal': 1, 'ST': 2, 'LVH': 3}
 # utilizando lambda para el reemplazo en una sola linea
-df['RestringECG'] = df['RestringECG'].apply(lambda x: d[x])
+df['RestingECG'] = df['RestingECG'].apply(lambda x: d[x])
+
 
 d = {'N': 1, 'Y': 0}
 # utilizando lambda para el reemplazo en una sola linea
 df['ExerciseAngina'] = df['ExerciseAngina'].apply(lambda x: d[x])
+
 
 d = {'Up': 2, 'Down': 1, 'Flat': 0}
 # utilizando lambda para el reemplazo en una sola linea
@@ -59,19 +61,21 @@ x = all_cols[:, 0:11]
 x = np.array(x)
 #print('x = ')
 # print(x)
-
-
 # generar grafica de puntos
-plt.scatter(x[:, 0], y)
-#plt.show()
+#plt.scatter(x[:, 0], y)
+# plt.show()
 
-#Craer modelo de regresion lineal
+# Crear modelo de regresion lineal
 model = LinearRegression()
 model.fit(x, y)
 
-#Coefficient of determination
+# Coefficient of determination
 r_sq = model.score(x, y)
-print('coefficient of determination:',r_sq)
-print('-----------------------------------Resultados del modelo matematico de regresion-------------------------------')
-print('intercept (b):', model.intercept_)
-print('slope(s):', model.coef_)
+print('Coefficient of determination: ', r_sq)
+print('---------regresion del modelo matematico de regresión-----------')
+print('intercept (b): ', model.intercept_)
+print('slope(s): ', model.coef_)
+
+# save model
+open("heart.pkl", "wb")
+pickle.dump(model, open("heart.pkl", "wb"))
